@@ -19,60 +19,64 @@ public class J1SP0001_Bubble_Sort {
         Scanner in = new Scanner(System.in);
 
         do {
-            System.out.println("Please enter a positive number of array: ");
+            System.out.println("Enter positive number: ");
             while (!in.hasNextInt()) {
-                System.out.println("Invalid value. Please enter again!");
+                System.out.println("Enter Integer number( positive number) : ");
                 in.next();
             }
             n = in.nextInt();
-
         } while (n <= 0);
-
         return n;
+
     }
 
     public static void displayAndSortArray(int n) {
-        int arr[] = createRandomArray(n);
+        int array[] = createRandomArray(n);
         System.out.print("Unsorted array: ");
-        displayOriginalArray(arr);
+        displayArray(array);
         System.out.print("Sorted Array: ");
-        displaySortedArray(arr);
+        sortArrayWithBubbleSortAlgorithm(array);
+        displayArray(array);
+
     }
 
     public static int[] createRandomArray(int n) {
         int[] array = new int[n];
         Random r = new Random();
         for (int i = 0; i < n; i++) {
-            array[i] = r.nextInt(100);
+            array[i] = r.nextInt(n);
         }
         return array;
+
     }
 
-    public static void displayOriginalArray(int[] array) {
+    public static void displayArray(int[] array) {
+        System.out.print("[");
         for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + ", ");
+            System.out.print(array[i]);
+            if (i < array.length - 1) {
+                System.out.print(", ");
+            }
         }
-        System.out.println();
-    }
-
-    public static void displaySortedArray(int[] array) {
-        sortArrayWithBubbleSortAlgorithm(array);
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + ", ");
-        }
-        System.out.println();
+        System.out.println("]");
     }
 
     public static void sortArrayWithBubbleSortAlgorithm(int[] array) {
         int n = array.length, temp;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (array[j] < array[i]) {
+        boolean swapped;
+
+        do {
+            swapped = false;
+
+            for (int i = 1; i < n; i++) {
+                if (array[i - 1] < array[i]) {
                     temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
+                    array[i] = array[i - 1];
+                    array[i - 1] = temp;
+                    swapped = true;
                 }
             }
-        }
+            n--;
+        } while (swapped);
     }
 }
